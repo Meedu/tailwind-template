@@ -1,17 +1,20 @@
 const { src, dest, series, parallel } = require('gulp');
 const clean = require('gulp-clean');
 const uglify = require('gulp-uglify');
+const postcss = require('gulp-postcss')
+const sourcemaps = require('gulp-sourcemaps')
 
-function clear() {
-    return src('dist', { read: false, allowEmpty: true })
+function pcClear() {
+    return src('dist/pc', { read: false, allowEmpty: true })
+        .pipe(clean());
+}
+function h5Clear() {
+    return src('dist/h5', { read: false, allowEmpty: true })
         .pipe(clean());
 }
 
-function css() {
-    const postcss = require('gulp-postcss')
-    const sourcemaps = require('gulp-sourcemaps')
-
-    return src('src/app.css')
+function pcCss() {
+    return src('src/pc/app.css')
         .pipe(sourcemaps.init())
         .pipe(postcss([
             require('tailwindcss'),
@@ -19,7 +22,18 @@ function css() {
             // require('postcss-csso'),
         ]))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('dist/css'))
+        .pipe(dest('dist/pc/'))
+}
+function h5Css() {
+    return src('src/h5/app.css')
+        .pipe(sourcemaps.init())
+        .pipe(postcss([
+            require('tailwindcss'),
+            require('autoprefixer'),
+            // require('postcss-csso'),
+        ]))
+        .pipe(sourcemaps.write('.'))
+        .pipe(dest('dist/h5/'))
 }
 
 function pcJs() {
@@ -34,5 +48,6 @@ function h5Js() {
         .pipe(dest('dist/h5'));
 }
 
-
-exports.default = series(clear, parallel(css, pcJs, h5Js))
+exports.pc = series(pcClear, parallel(pcJs, pcCss))
+exports.h5 = series(h5Clear, parallel(h5Css, h5Js))
+exports.default = parallel(series(pcClear, parallel(pcJs, pcCss)), series(h5Clear, parallel(h5Css, h5Js)))
