@@ -1,12 +1,13 @@
-const { src, dest, series } = require('gulp');
+const { src, dest, series, parallel } = require('gulp');
 const clean = require('gulp-clean');
+const uglify = require('gulp-uglify');
 
 function clear() {
-    return src('dist', { read: false })
+    return src('dist', { read: false, allowEmpty: true })
         .pipe(clean());
 }
 
-function build() {
+function css() {
     const postcss = require('gulp-postcss')
     const sourcemaps = require('gulp-sourcemaps')
 
@@ -14,10 +15,24 @@ function build() {
         .pipe(sourcemaps.init())
         .pipe(postcss([
             require('tailwindcss'),
-            require('autoprefixer')
+            require('autoprefixer'),
+            // require('postcss-csso'),
         ]))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('dist/'))
+        .pipe(dest('dist/css'))
 }
 
-exports.default = series(clear, build)
+function pcJs() {
+    return src('src/pc/app.js')
+        .pipe(uglify())
+        .pipe(dest('dist/pc/'));
+}
+
+function h5Js() {
+    return src('src/h5/app.js')
+        .pipe(uglify())
+        .pipe(dest('dist/h5'));
+}
+
+
+exports.default = series(clear, parallel(css, pcJs, h5Js))

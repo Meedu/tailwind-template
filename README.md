@@ -2,6 +2,15 @@
 
 ## Tailwind gulp tempalte
 
+
+#### 开发
+
 ```
-gulp
+yarn dev
+```
+
+#### 上线
+
+```
+yarn prod
 ```
