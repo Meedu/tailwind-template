@@ -1,11 +1,12 @@
+
 $(function () {
-    $('body').on('click', '.notify-close-button', function () {
-        $(this).parent().parent().parent().parent().parent().remove();
-    });
+  $('body').on('click', '.notify-close-button', function () {
+    $(this).parent().parent().parent().parent().parent().remove();
+  });
 });
 
 window.flashSuccess = function (message) {
-    const t = `
+  const t = `
     <div class="notify-message-box fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end">
   <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
     <div class="p-4">
@@ -33,11 +34,11 @@ window.flashSuccess = function (message) {
   </div>
 </div>
     `;
-    $('body').append(t);
+  $('body').append(t);
 }
 
 window.flashError = function (message) {
-    const t = `
+  const t = `
     <div class="notify-message-box fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end">
   <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
     <div class="p-4">
@@ -65,11 +66,11 @@ window.flashError = function (message) {
   </div>
 </div>
     `;
-    $('body').append(t);
+  $('body').append(t);
 }
 
 window.flashWarning = function (message) {
-    flashError(message);
+  flashError(message);
 }
 
 
