@@ -3,3 +3,36 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+@layer components {
+    .btn-default {
+        @apply text-white bg-gradient-to-r from-blue-400 to-indigo-600
+    }
+
+    .btn-default:hover,
+    .btn-default-active {
+        @apply text-white bg-gradient-to-r from-blue-500 to-indigo-700
+    }
+
+    .categroy-item-default {
+        @apply text-gray-400
+    }
+
+    .categroy-item-default:hover {
+        @apply text-gray-600
+    }
+
+    .category-item-active {
+        @apply text-white bg-gradient-to-r from-blue-400 to-indigo-600
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
