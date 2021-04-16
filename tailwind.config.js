@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: {
     // @see https://www.tailwindcss.cn/docs/controlling-file-size
@@ -10,6 +12,7 @@ module.exports = {
   },
   darkMode: 'media', // or 'media' or 'class'
   theme: {
+    colors: colors,
     container: {
       center: true,
     },
